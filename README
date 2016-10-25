@@ -1,0 +1,3 @@
+This program will parse a calendar from the Birkbeck website into an ical file, suitable for import into a Google calendar.
+
+By default the program parses the School of Arts calendar at Birkbeck, University of London. Otherwise, it will treat the first command-line argument as the URL to parse.
