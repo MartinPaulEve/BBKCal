@@ -15,10 +15,12 @@ def parse_event(event):
     new_event.name = event.find('h3', attrs={'class': 'heading'}).getText().strip()
     new_event.location = event.find('b', text=re.compile('.*?Location.+')).parent.getText().strip()[10:]
     new_event.begin = arrow.get(
-        event.find('b', text=re.compile('.*?Start.+')).parent.find('span').getText().strip().replace(' ', ''),
+        event.find('b', text=re.compile('.*?Start.+')).parent.find('span').getText().strip().replace(' ', '').replace(
+            '\n'), '',
         'DDMMMYYYYHH:mm')
     new_event.end = arrow.get(
-        event.find('b', text=re.compile('.*?Finish.+')).parent.find('span').getText().strip().replace(' ', ''),
+        event.find('b', text=re.compile('.*?Finish.+')).parent.find('span').getText().strip().replace(' ', '').replace(
+            '\n', ''),
         'DDMMMYYYYHH:mm')
 
     return new_event
