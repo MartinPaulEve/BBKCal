@@ -16,10 +16,10 @@ def parse_event(event):
     new_event.location = event.find('b', text=re.compile('.*?Location.+')).parent.getText().strip()[10:]
     new_event.begin = arrow.get(
         event.find('b', text=re.compile('.*?Start.+')).parent.find('span').getText().strip().replace(' ', ''),
-        'DD MMM YYYY HH:mm')
+        'DDMMMYYYYHH:mm')
     new_event.end = arrow.get(
         event.find('b', text=re.compile('.*?Finish.+')).parent.find('span').getText().strip().replace(' ', ''),
-        'DD MMM YYYY HH:mm')
+        'DDMMMYYYYHH:mm')
 
     return new_event
 
