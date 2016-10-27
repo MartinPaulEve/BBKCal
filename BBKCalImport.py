@@ -17,11 +17,11 @@ def parse_event(event):
     new_event.begin = arrow.get(
         event.find('b', text=re.compile('.*?Start.+')).parent.find('span').getText().strip().replace(' ', '').replace(
             '\n', ''),
-        'DDMMMYYYYHH:mm')
+        'DDMMMYYYYHH:mm').to('Europe/London')
     new_event.end = arrow.get(
         event.find('b', text=re.compile('.*?Finish.+')).parent.find('span').getText().strip().replace(' ', '').replace(
             '\n', ''),
-        'DDMMMYYYYHH:mm')
+        'DDMMMYYYYHH:mm').to('Europe/London')
 
     return new_event
 
