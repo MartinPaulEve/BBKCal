@@ -41,6 +41,10 @@ def main(argv):
 
         soup_object = BeautifulSoup(html.text, 'lxml')
         meta = soup_object.find(name='ul', attrs={'class': 'listing event-listing'})
+
+        if not meta:
+            break
+
         events = meta.findAll(name='li', attrs={'class': 'item'})
 
         for event in events:
