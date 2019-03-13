@@ -12,7 +12,7 @@ from ics import Event
 def parse_event(event):
     new_event = Event()
 
-    new_event.name = event.find('h4', attrs={'class': 'card__title'}).getText().strip()
+    new_event.name = event.find('h3', attrs={'class': 'card__title'}).getText().strip()
     new_event.location = event.findAll('p')[1].getText().strip()
     times = event.findAll('time')
 
@@ -23,15 +23,15 @@ def parse_event(event):
 
 
 def main(argv):
-    url = 'http://www.bbk.ac.uk/events-calendar?browseby=School+of+Arts&item=Subject&portal_type=BBKEvent'
+    url = 'http://www.bbk.ac.uk/events/?tag=1&b_start:int={0}#events-listing'
 
     if len(argv) > 1:
         url = argv[1]
 
     calendar = Calendar()
 
-    for page in range(0, 4):
-        url_to_use = url + '&next={0}'.format(page * 12)
+    for page in range(1, 4):
+        url_to_use = url.format(page * 12)
 
         html = requests.get(url_to_use)
 
@@ -44,7 +44,7 @@ def main(argv):
         events = meta.findAll(name='div', attrs={'class': 'column medium-4 large-3'})
 
         for event in events:
-            calendar.events.append(parse_event(event))
+            calendar.events.add(parse_event(event))
 
     print(calendar)
 
